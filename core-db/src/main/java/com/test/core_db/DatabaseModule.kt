@@ -19,7 +19,9 @@ object DatabaseModule {
     fun providesRealmConfig(): RealmConfiguration =
         RealmConfiguration.Builder()
             .schemaVersion(REALM_VERSION)
+
             .build()
+
     @Singleton
     @Provides
     fun provideDatabaseAccess(config: RealmConfiguration): DatabaseAccess =

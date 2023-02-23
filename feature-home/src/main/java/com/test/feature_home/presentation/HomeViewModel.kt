@@ -12,7 +12,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val doorsUseCase: DoorsUseCase,
-    private val camerasUSeCase: CamerasUseCase,
+    private val camerasUseCase: CamerasUseCase,
 ): ViewModel() {
 
 
@@ -27,15 +27,18 @@ class HomeViewModel @Inject constructor(
          })
     }
 
-    fun loadCameras(){
-        camerasUSeCase.cameras
+    fun camerasFromDb(){
+          camerasUseCase.cameras
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                Log.d("DOOR_INFO",it.toString())
+                Log.d("Camera_INFO",it.toString())
             },{
-
+                Log.d("Camera_INFO_VM",it.message.toString())
             })
+    }
+
+    fun saveCamerasToDb(){
+        camerasUseCase.saveCamerasToDb()
     }
 
 }

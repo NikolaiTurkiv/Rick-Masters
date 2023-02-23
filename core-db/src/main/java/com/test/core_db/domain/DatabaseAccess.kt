@@ -8,9 +8,9 @@ import io.realm.RealmResults
 interface DatabaseAccess {
     fun saveCamera(cameraRealm: List<CameraRealm>)
     fun saveDoor(doorRealm: List<DoorRealm>)
-    fun saveRoom(roomRealm: RoomRealm)
-    fun getCamera(): List<CameraRealm>
-    fun getDoor(): List<DoorRealm>
+    fun saveRoom(roomsRealm: List<RoomRealm>)
+    fun getCamera(): RealmResults<CameraRealm>
+    fun getDoor(): RealmResults<DoorRealm>
     fun getRoom(): RealmResults<RoomRealm>
     fun removeAll()
 }

@@ -1,6 +1,7 @@
 package com.test.feature_home.presentation
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,19 +20,19 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-         return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.loadCameras()
-        viewModel.loadDoors()
+        viewModel.camerasFromDb()
+
     }
 
     companion object {
         @JvmStatic
-        fun newInstance( ) =
+        fun newInstance() =
             HomeFragment()
     }
 
