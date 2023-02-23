@@ -1,5 +1,6 @@
 package com.test.repository_doors
 
+import com.test.core_db.domain.DatabaseAccess
 import com.test.core_network.data.NetworkApi
 import com.test.repository_doors.data.DoorsRepositoryImpl
 import com.test.repository_doors.domain.DoorsRepository
@@ -15,7 +16,8 @@ import javax.inject.Singleton
 object DoorsRepositoryModule {
 
     @Provides
-    fun provideDoorsRepository(api: NetworkApi): DoorsRepository = DoorsRepositoryImpl(api)
+    fun provideDoorsRepository(api: NetworkApi, db: DatabaseAccess): DoorsRepository =
+        DoorsRepositoryImpl(api, db)
 
     @Provides
     @Singleton

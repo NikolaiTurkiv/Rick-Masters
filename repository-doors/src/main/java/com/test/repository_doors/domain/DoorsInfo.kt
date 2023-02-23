@@ -1,5 +1,6 @@
 package com.test.repository_doors.domain
 
+import com.test.core_db.data.DoorRealm
 import com.test.core_network.data.response.DoorsResponse
 
 data class DoorsInfo(
@@ -11,6 +12,16 @@ data class DoorsInfo(
 )
 
 fun DoorsResponse.toDoorsInfo(): DoorsInfo{
+    return DoorsInfo(
+        name = this.name,
+        room = this.room,
+        id = this.id,
+        favorites = this.favorites,
+        snapshot = this.snapshot
+    )
+}
+
+fun DoorRealm.toDoorsInfo(): DoorsInfo{
     return DoorsInfo(
         name = this.name,
         room = this.room,

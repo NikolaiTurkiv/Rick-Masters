@@ -16,12 +16,16 @@ class HomeViewModel @Inject constructor(
 ): ViewModel() {
 
 
-    fun loadDoors(){
+    fun saveDoors(){
+        doorsUseCase.saveDoors()
+    }
+
+    fun doorsFromDb(){
      doorsUseCase.doors
          .subscribeOn(Schedulers.io())
          .observeOn(AndroidSchedulers.mainThread())
          .subscribe({
-             Log.d("DOOR_INFO",it.data.toString())
+             Log.d("DOOR_INFO",it.toString())
          },{
 
          })

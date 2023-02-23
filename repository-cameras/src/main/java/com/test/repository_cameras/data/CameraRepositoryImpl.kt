@@ -42,11 +42,6 @@ class CameraRepositoryImpl(
     }
 
     override fun getCamerasFromBd(): Single<List<CameraInfo>> {
-
-
-
-
-
         return Single.just(db.getCamera().map { it.toCameraInfo() })
     }
 }
