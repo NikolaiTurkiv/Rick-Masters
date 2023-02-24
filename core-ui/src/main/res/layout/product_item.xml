@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.apachat.swipereveallayout.core.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    app:dragEdge="right"
+    app:mode="same_level">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/add_to_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right"
+            android:src="@drawable/ic_star_circle"
+            tools:ignore="ContentDescription"/>
+
+    </FrameLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="274dp"
+        app:cardCornerRadius="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image_download"
+                android:layout_width="wrap_content"
+                android:layout_height="207dp"
+                android:scaleType="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            <ImageView
+                android:id="@+id/rec_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_rec"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/favorite_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_star"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/safe_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_download"
+                app:srcCompat="@drawable/ic_deff"
+                tools:ignore="ContentDescription" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/safe_image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_download">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    tools:text="Камера 1" />
+
+                <TextView
+                    android:id="@+id/online_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/online"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@+id/name"
+                    app:layout_constraintTop_toTopOf="@+id/safe_image"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/play_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/image_download"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/image_download"
+                app:layout_constraintTop_toTopOf="@+id/image_download"
+                app:srcCompat="@drawable/ic_play_button" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</com.apachat.swipereveallayout.core.SwipeLayout>
