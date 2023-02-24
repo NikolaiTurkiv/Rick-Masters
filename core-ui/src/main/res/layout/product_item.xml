@@ -4,6 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginBottom="5dp"
     app:dragEdge="right"
     app:mode="same_level">
 
@@ -17,6 +21,7 @@
             android:id="@+id/add_to_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_gravity="center|right"
             android:src="@drawable/ic_star_circle"
             tools:ignore="ContentDescription"/>
@@ -36,7 +41,7 @@
                 android:id="@+id/image_download"
                 android:layout_width="wrap_content"
                 android:layout_height="207dp"
-                android:scaleType="center"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -88,6 +93,7 @@
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/circe_regular"
                     android:textColor="@color/black"
                     tools:text="Камера 1" />
 
@@ -95,6 +101,7 @@
                     android:id="@+id/online_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/circe_regular"
                     android:text="@string/online"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="@+id/name"

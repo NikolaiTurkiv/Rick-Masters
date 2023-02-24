@@ -6,27 +6,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.google.android.material.tabs.TabLayoutMediator
 import com.test.feature_home.R
+import com.test.feature_home.databinding.FragmentHomeBinding
+import com.test.feature_home.presentation.adapters.PagerAdapter
+import com.test.lib_android_utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(R.layout.fragment_home) {
 
-
-    val viewModel by viewModels<HomeViewModel>()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    private val viewModel by viewModels<HomeViewModel>()
+    private val binding by viewBinding<FragmentHomeBinding>()
+    private val adapter by lazy {
+        PagerAdapter(requireActivity())
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initProductDetailsViewPager()
+    }
 
-        viewModel.camerasFromDb()
-        viewModel.doorsFromDb()
+
+    private fun initProductDetailsViewPager() {
+         binding.productDetailsViewPager.adapter = adapter
+        TabLayoutMediator(binding.homeTab, binding.productDetailsViewPager) { tab, pos ->
+            when (pos) {
+                0 -> tab.text = getString(com.test.core_ui.R.string.cameras)
+                 else -> tab.text = getString(com.test.core_ui.R.string.doors)
+            }
+        }.attach()
 
     }
 
@@ -35,6 +45,5 @@ class HomeFragment : Fragment() {
         fun newInstance() =
             HomeFragment()
     }
-
 
 }
