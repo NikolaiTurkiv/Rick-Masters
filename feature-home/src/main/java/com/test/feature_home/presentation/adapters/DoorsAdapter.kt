@@ -15,7 +15,7 @@ import com.test.repository_doors.domain.DoorsInfo
 
 class DoorsAdapter(
     private val inflater: LayoutInflater,
-    private val itemEditClick: () -> Unit,
+    private val itemEditClick: (item: DoorsUI) -> Unit,
     private val itemContainerClick: (Int) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -92,14 +92,14 @@ class DoorsAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(
             item: DoorsUI,
-            itemEditClick: () -> Unit,
+            itemEditClick: (doorUi:DoorsUI) -> Unit,
             itemContainerClick: (Int) -> Unit,
             position: Int
         ) {
             with(binding) {
                 doorName.text = item.name
                 edit.setOnClickListener {
-                    itemEditClick.invoke()
+                    itemEditClick.invoke(item)
                 }
                 doorItemContainer.setOnClickListener {
                     itemContainerClick.invoke(position)

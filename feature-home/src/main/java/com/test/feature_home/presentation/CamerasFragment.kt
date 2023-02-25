@@ -23,6 +23,7 @@ class CamerasFragment : Fragment(R.layout.fragment_cameras) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        viewModel.saveCamerasToDb()
         viewModel.camerasFromDb()
 
     }
