@@ -2,13 +2,19 @@ buildscript {
     ext.hilt_version = "2.44"
     ext.realm_version = '10.8.0'
 
+    repositories {
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+        google()
+        jcenter()
+    }
+
     dependencies {
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         classpath "com.android.tools.build:gradle:4.1.2"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3"
         classpath "io.realm:realm-gradle-plugin:$realm_version"
     }
-
 }
 
 plugins {
