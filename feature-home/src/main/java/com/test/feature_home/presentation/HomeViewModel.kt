@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.test.feature_home.presentation.domain.DoorsUI
+import com.test.feature_home.presentation.domain.toDoorsUI
 import com.test.repository_cameras.domain.CameraInfo
 import com.test.repository_cameras.domain.CamerasUseCase
 import com.test.repository_doors.domain.DoorsInfo
@@ -19,11 +21,13 @@ class HomeViewModel @Inject constructor(
     private val camerasUseCase: CamerasUseCase,
 ): ViewModel() {
 
+    private val doorsList = mutableListOf<DoorsUI>()
+
     private val _cameraInfoLd = MutableLiveData<List<CameraInfo>>()
     val cameraInfoLD: LiveData<List<CameraInfo>> get() = _cameraInfoLd
 
-    private val _doorsInfoLd = MutableLiveData<List<DoorsInfo>>()
-    val doorsInfoLD: LiveData<List<DoorsInfo>> get() = _doorsInfoLd
+    private val _doorsInfoLd = MutableLiveData<List<DoorsUI>>()
+    val doorsInfoLD: LiveData<List<DoorsUI>> get() = _doorsInfoLd
 
     fun saveDoors(){
         doorsUseCase.saveDoors()
@@ -34,7 +38,9 @@ class HomeViewModel @Inject constructor(
          .subscribeOn(Schedulers.io())
          .observeOn(AndroidSchedulers.mainThread())
          .subscribe({
-             _doorsInfoLd.postValue(it)
+             val list = it.map { door -> door.toDoorsUI() }
+             _doorsInfoLd.postValue(list)
+             doorsList.addAll(list)
              Log.d("DOOR_INFO",it.toString())
          },{
 
@@ -50,6 +56,11 @@ class HomeViewModel @Inject constructor(
             },{
                 Log.d("Camera_INFO_VM",it.message.toString())
             })
+    }
+
+    fun updateDoorList(position: Int){
+        doorsList[position].viewType = if(doorsList[position].viewType == 0) 1 else 0
+        _doorsInfoLd.value = doorsList
     }
 
     fun saveCamerasToDb(){

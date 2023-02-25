@@ -12,6 +12,7 @@ import com.test.feature_home.databinding.FragmentCamerasBinding
 import com.test.feature_home.databinding.FragmentDoorsBinding
 import com.test.feature_home.presentation.adapters.DoorsAdapter
 import com.test.feature_home.presentation.adapters.DoorsShortAdapter
+import com.test.feature_home.presentation.domain.DoorsUI
 import com.test.lib_android_utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,15 +22,14 @@ class DoorsFragment : Fragment(R.layout.fragment_doors) {
     private val viewModel by viewModels<HomeViewModel>()
     private val binding by viewBinding<FragmentDoorsBinding>()
 
-    private val doorAdapter by lazy{
-        DoorsAdapter(LayoutInflater.from(requireContext()))
+    private val doorAdapter by lazy {
+        DoorsAdapter(LayoutInflater.from(requireContext()), {
+
+        }, {
+            viewModel.updateDoorList(it)
+        })
     }
 
-    private val shortDoorAdapter by lazy{
-        DoorsShortAdapter(LayoutInflater.from(requireContext())){
-            Toast.makeText(requireContext(),"Success",Toast.LENGTH_SHORT).show()
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,14 +42,14 @@ class DoorsFragment : Fragment(R.layout.fragment_doors) {
         initObservers()
     }
 
-    private fun initObservers(){
-        viewModel.doorsInfoLD.observe(viewLifecycleOwner){
-            shortDoorAdapter.updateList(it)
+    private fun initObservers() {
+        viewModel.doorsInfoLD.observe(viewLifecycleOwner) {
+            doorAdapter.updateList(it)
         }
     }
 
-    private fun initRecycler(){
-        binding.rvDoors.adapter = shortDoorAdapter
+    private fun initRecycler() {
+        binding.rvDoors.adapter = doorAdapter
     }
 
 

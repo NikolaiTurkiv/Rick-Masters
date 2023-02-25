@@ -6,31 +6,47 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import com.test.core_ui.databinding.DoorItemBinding
 import com.test.core_ui.databinding.ProductItemBinding
 import com.test.feature_home.R
+import com.test.feature_home.presentation.domain.DoorsUI
 import com.test.repository_cameras.domain.CameraInfo
 import com.test.repository_doors.domain.DoorsInfo
 
 class DoorsAdapter(
     private val inflater: LayoutInflater,
-) : RecyclerView.Adapter<DoorsAdapter.DoorsAdapterViewHolder>() {
+    private val itemEditClick: () -> Unit,
+    private val itemContainerClick: (Int) -> Unit,
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val doorsItems = mutableListOf<DoorsInfo>()
+    private val doorsItems = mutableListOf<DoorsUI>()
 
-    fun updateList(list: List<DoorsInfo>) {
+    fun updateList(list: List<DoorsUI>) {
         doorsItems.clear()
         doorsItems.addAll(list)
 
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoorsAdapterViewHolder {
-        return DoorsAdapterViewHolder(ProductItemBinding.inflate(inflater, parent, false))
-     }
-
-    override fun onBindViewHolder(holder: DoorsAdapterViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = doorsItems[position]
-        holder.onBind(item)
+        if (item.viewType == 0) {
+            (holder as DoorsShortAdapterViewHolder).onBind(item, itemEditClick, itemContainerClick,position)
+        } else {
+            (holder as DoorsAdapterViewHolder).onBind(item, itemContainerClick,position)
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+      return  when (viewType) {
+            0 -> DoorsShortAdapterViewHolder(DoorItemBinding.inflate(inflater, parent, false))
+            else -> DoorsAdapterViewHolder(ProductItemBinding.inflate(inflater, parent, false))
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int = when (doorsItems[position].viewType) {
+        0 -> 0
+        else -> 1
     }
 
 
@@ -41,9 +57,14 @@ class DoorsAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(
-            item: DoorsInfo,
+            item: DoorsUI,
+            itemContainerClick: (Int) -> Unit,
+            position: Int
         ) {
             with(binding) {
+                productItemContainer.setOnClickListener {
+                    itemContainerClick.invoke(position)
+                }
                 name.text = item.name
                 recImage.visibility = View.INVISIBLE
                 onlineText.visibility = View.VISIBLE
@@ -62,6 +83,26 @@ class DoorsAdapter(
                 } else {
                     playButton.visibility = View.INVISIBLE
                     imageDownload.setImageResource(com.test.core_ui.R.drawable.page_not_found)
+                }
+            }
+        }
+    }
+
+    class DoorsShortAdapterViewHolder(private val binding: DoorItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun onBind(
+            item: DoorsUI,
+            itemEditClick: () -> Unit,
+            itemContainerClick: (Int) -> Unit,
+            position: Int
+        ) {
+            with(binding) {
+                doorName.text = item.name
+                edit.setOnClickListener {
+                    itemEditClick.invoke()
+                }
+                doorItemContainer.setOnClickListener {
+                    itemContainerClick.invoke(position)
                 }
             }
         }

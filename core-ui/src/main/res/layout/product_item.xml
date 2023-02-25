@@ -34,6 +34,7 @@
         app:cardCornerRadius="20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/product_item_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -115,7 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="@+id/image_download"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/image_download"
                 app:layout_constraintStart_toStartOf="@+id/image_download"
                 app:layout_constraintTop_toTopOf="@+id/image_download"
                 app:srcCompat="@drawable/ic_play_button" />
