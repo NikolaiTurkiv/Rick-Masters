@@ -13,7 +13,7 @@ import com.test.lib_android_utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DoorsFragment : Fragment(R.layout.fragment_doors) {
+class DoorsFragment : Fragment(R.layout.fragment_doors){
 
     private val viewModel by viewModels<HomeViewModel>()
     private val binding by viewBinding<FragmentDoorsBinding>()
@@ -31,7 +31,7 @@ class DoorsFragment : Fragment(R.layout.fragment_doors) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        viewModel.saveDoors()
+//         viewModel.doorsFromNetwork()
         viewModel.doorsFromDb()
     }
 
@@ -40,21 +40,32 @@ class DoorsFragment : Fragment(R.layout.fragment_doors) {
         super.onViewCreated(view, savedInstanceState)
         initRecycler()
         initObservers()
+        initClickListeners()
     }
 
     private fun initObservers() {
         viewModel.doorsInfoLD.observe(viewLifecycleOwner) {
             doorAdapter.updateList(it)
         }
+
+        viewModel.closeDialogLd.observe(viewLifecycleOwner){
+            Toast.makeText(requireContext(),"CLOSE",Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initRecycler() {
         binding.rvDoors.adapter = doorAdapter
     }
+    private fun initClickListeners(){
+        binding.swipeRefreshDoors.setOnRefreshListener {
+            viewModel.doorsFromDb()
+            binding.swipeRefreshDoors.isRefreshing = false
+        }
+
+    }
 
 
     companion object {
-
         @JvmStatic
         fun newInstance() =
             DoorsFragment()

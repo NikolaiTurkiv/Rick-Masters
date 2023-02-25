@@ -2,9 +2,6 @@ package com.test.core_db.data
 
 import android.util.Log
 import com.test.core_db.domain.DatabaseAccess
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.RealmResults
@@ -30,12 +27,20 @@ class DatabaseAccessImpl @Inject constructor(
         val realm = Realm.getInstance(config)
 
         realm.beginTransaction()
-
         for (doors in doorsRealm) {
+            val currentIndex = realm.where(DoorRealm::class.java).max("keyId")
+            var index = 0
+            index = if (currentIndex == null) {
+                1
+            } else {
+                currentIndex.toInt() + 1
+            }
+            doors.keyId = index
+
             realm.insert(doors)
         }
         realm.commitTransaction()
-    }
+     }
 
     override fun saveRoom(roomsRealm: List<RoomRealm>) {
         val realm = Realm.getInstance(config)
@@ -46,6 +51,28 @@ class DatabaseAccessImpl @Inject constructor(
             realm.insert(room)
         }
         realm.commitTransaction()
+        realm.close()
+
+    }
+
+    override fun updateDoor(doorRealm: DoorRealm) {
+        val realm = Realm.getInstance(config)
+
+        realm.beginTransaction()
+
+        val doorFromDb = realm.where(DoorRealm::class.java)
+            .equalTo("keyId", doorRealm.keyId)
+            .findFirst()
+
+        Log.d("DOOOOR",doorFromDb.toString())
+        Log.d("DOOOOR",doorRealm.name.toString())
+
+        doorFromDb?.name = doorRealm.name
+        doorFromDb?.let { realm.copyToRealm(it) }
+
+        realm.commitTransaction()
+        realm.close()
+
     }
 
     override fun getCamera(): RealmResults<CameraRealm> {

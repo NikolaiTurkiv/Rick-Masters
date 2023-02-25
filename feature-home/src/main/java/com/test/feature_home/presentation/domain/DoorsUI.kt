@@ -4,6 +4,7 @@ import com.test.repository_doors.domain.DoorsInfo
 import com.test.repository_doors.domain.toDoorsInfo
 
 data class DoorsUI(
+    val keyId: Int? = null,
     val name: String?,
     val room: String?,
     val id: Int?,
@@ -13,6 +14,18 @@ data class DoorsUI(
 )
 fun DoorsInfo.toDoorsUI(): DoorsUI{
     return DoorsUI(
+        keyId = this.keyId,
+        name = this.name,
+        room = this.room,
+        id = this.id,
+        favorites = this.favorites,
+        snapshot = this.snapshot
+    )
+}
+
+fun DoorsUI.toDoorsInfo(): DoorsInfo{
+    return DoorsInfo(
+        keyId = this.keyId,
         name = this.name,
         room = this.room,
         id = this.id,
