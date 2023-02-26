@@ -17,7 +17,7 @@ class DatabaseAccessImpl @Inject constructor(
         realm.beginTransaction()
 
         for (camera in camerasRealm) {
-            realm.insert(camera)
+            realm.insertOrUpdate(camera)
         }
         realm.commitTransaction()
     }
@@ -27,16 +27,7 @@ class DatabaseAccessImpl @Inject constructor(
 
         realm.beginTransaction()
         for (doors in doorsRealm) {
-            val currentIndex = realm.where(DoorRealm::class.java).max("keyId")
-            var index = 0
-            index = if (currentIndex == null) {
-                1
-            } else {
-                currentIndex.toInt() + 1
-            }
-            doors.keyId = index
-
-            realm.insert(doors)
+            realm.insertOrUpdate(doors)
         }
         realm.commitTransaction()
      }
@@ -47,7 +38,7 @@ class DatabaseAccessImpl @Inject constructor(
         realm.beginTransaction()
 
         for (room in roomsRealm) {
-            realm.insert(room)
+            realm.insertOrUpdate(room)
         }
         realm.commitTransaction()
     }
@@ -58,7 +49,7 @@ class DatabaseAccessImpl @Inject constructor(
         realm.beginTransaction()
 
         val doorFromDb = realm.where(DoorRealm::class.java)
-            .equalTo("keyId", doorRealm.keyId)
+            .equalTo("id", doorRealm.id)
             .findFirst()
 
         doorFromDb?.name = doorRealm.name

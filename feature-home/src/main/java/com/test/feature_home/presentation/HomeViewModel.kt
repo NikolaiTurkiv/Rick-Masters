@@ -38,20 +38,27 @@ class HomeViewModel @Inject constructor(
         doorsUseCase.doorsFromDb
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .delay(1,TimeUnit.SECONDS)
+            .delay(1, TimeUnit.SECONDS)
             .subscribe({
 
-                if (it.isEmpty()){
-                    doorsFromNetwork()
-                }else{
-                    val list = it.map { door -> door.toDoorsUI() }
-                    _doorsInfoLd.postValue(list)
-                    doorsList.addAll(list)
-                    Log.d("DOOR_INFO_DB", it.toString())
-                }
+
+                val list = it.map { door -> door.toDoorsUI() }
+                _doorsInfoLd.postValue(list)
+                doorsList.addAll(list)
+                Log.d("DOOR_INFO_DB", it.toString())
+
+//                if (it.isEmpty()) {
+//                    doorsFromNetwork()
+//                } else {
+//                    val list = it.map { door -> door.toDoorsUI() }
+//                    _doorsInfoLd.postValue(list)
+//                    doorsList.addAll(list)
+//                    Log.d("DOOR_INFO_DB", it.toString())
+//                }
             }, {
                 Log.d("DOOR_INFO_DB", it.toString())
-            })
+            }
+            )
     }
 
     fun doorsFromNetwork() {
@@ -62,7 +69,7 @@ class HomeViewModel @Inject constructor(
                 doorsFromDb()
             }
             .subscribe({
-                 doorsUseCase.saveDoorFromNetwork(it)
+                doorsUseCase.saveDoorFromNetwork(it)
                 Log.d("DOOR_INFO_NW", it.toString())
             }, {
                 Log.d("DOOR_INFO_NW", it.toString())
