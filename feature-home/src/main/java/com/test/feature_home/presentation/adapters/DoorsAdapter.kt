@@ -1,6 +1,5 @@
 package com.test.feature_home.presentation.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,14 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.test.core_ui.databinding.DoorItemBinding
 import com.test.core_ui.databinding.ProductItemBinding
-import com.test.feature_home.R
 import com.test.feature_home.presentation.domain.DoorsUI
-import com.test.repository_cameras.domain.CameraInfo
-import com.test.repository_doors.domain.DoorsInfo
 
 class DoorsAdapter(
     private val inflater: LayoutInflater,
-    private val itemEditClick: () -> Unit,
+    private val itemEditClick: (item: DoorsUI) -> Unit,
     private val itemContainerClick: (Int) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -31,14 +27,19 @@ class DoorsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = doorsItems[position]
         if (item.viewType == 0) {
-            (holder as DoorsShortAdapterViewHolder).onBind(item, itemEditClick, itemContainerClick,position)
+            (holder as DoorsShortAdapterViewHolder).onBind(
+                item,
+                itemEditClick,
+                itemContainerClick,
+                position
+            )
         } else {
-            (holder as DoorsAdapterViewHolder).onBind(item, itemContainerClick,position)
+            (holder as DoorsAdapterViewHolder).onBind(item, itemContainerClick, position)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-      return  when (viewType) {
+        return when (viewType) {
             0 -> DoorsShortAdapterViewHolder(DoorItemBinding.inflate(inflater, parent, false))
             else -> DoorsAdapterViewHolder(ProductItemBinding.inflate(inflater, parent, false))
         }
@@ -92,14 +93,14 @@ class DoorsAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(
             item: DoorsUI,
-            itemEditClick: () -> Unit,
+            itemEditClick: (doorUi: DoorsUI) -> Unit,
             itemContainerClick: (Int) -> Unit,
             position: Int
         ) {
             with(binding) {
                 doorName.text = item.name
                 edit.setOnClickListener {
-                    itemEditClick.invoke()
+                    itemEditClick.invoke(item)
                 }
                 doorItemContainer.setOnClickListener {
                     itemContainerClick.invoke(position)

@@ -4,4 +4,10 @@
     <string name="my_house">Мой дом</string>
     <string name="cameras">Камеры</string>
     <string name="doors">Двери</string>
+    <string name="enter_new_label">Введите новое название:</string>
+    <string name="button_save_text">Сохранить</string>
+    <string name="button_text_cancel">Отмена</string>
+    <string name="field_can_not_be_empty">Имя не может быть пустым</string>
+    <string name="new_label">Новое название</string>
+
 </resources>

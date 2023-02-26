@@ -1,10 +1,8 @@
 package com.test.feature_home.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import com.test.feature_home.R
@@ -30,11 +28,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
     private fun initProductDetailsViewPager() {
-         binding.productDetailsViewPager.adapter = adapter
+        binding.productDetailsViewPager.adapter = adapter
         TabLayoutMediator(binding.homeTab, binding.productDetailsViewPager) { tab, pos ->
             when (pos) {
                 0 -> tab.text = getString(com.test.core_ui.R.string.cameras)
-                 else -> tab.text = getString(com.test.core_ui.R.string.doors)
+                else -> tab.text = getString(com.test.core_ui.R.string.doors)
             }
         }.attach()
 

@@ -9,6 +9,7 @@ interface DatabaseAccess {
     fun saveCamera(cameraRealm: List<CameraRealm>)
     fun saveDoor(doorRealm: List<DoorRealm>)
     fun saveRoom(roomsRealm: List<RoomRealm>)
+    fun updateDoor(doorRealm: DoorRealm)
     fun getCamera(): RealmResults<CameraRealm>
     fun getDoor(): RealmResults<DoorRealm>
     fun getRoom(): RealmResults<RoomRealm>

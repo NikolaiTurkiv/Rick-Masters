@@ -27,15 +27,17 @@ class DoorsShortAdapter(
 
     override fun onBindViewHolder(holder: DoorsShortAdapterViewHolder, position: Int) {
         val item = doorsItems[position]
-        holder.onBind(item,itemEditClick)
+        holder.onBind(item, itemEditClick)
     }
 
     override fun getItemCount(): Int = doorsItems.size
 
     class DoorsShortAdapterViewHolder(private val binding: DoorItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(item: DoorsInfo,
-                   itemEditClick: () -> Unit) {
+        fun onBind(
+            item: DoorsInfo,
+            itemEditClick: () -> Unit
+        ) {
             with(binding) {
                 doorName.text = item.name
                 edit.setOnClickListener {

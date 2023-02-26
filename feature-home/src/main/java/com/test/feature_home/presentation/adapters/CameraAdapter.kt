@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.test.core_ui.databinding.ProductItemBinding
-import com.test.feature_home.R
 import com.test.repository_cameras.domain.CameraInfo
 
 class CameraAdapter(private val inflater: LayoutInflater) :
@@ -49,7 +48,7 @@ class CameraAdapter(private val inflater: LayoutInflater) :
                     Picasso.get()
                         .load(item.snapshot)
                         .into(imageDownload)
-                }else{
+                } else {
                     recImage.visibility = View.INVISIBLE
                     imageDownload.setImageResource(com.test.core_ui.R.drawable.page_not_found)
                 }

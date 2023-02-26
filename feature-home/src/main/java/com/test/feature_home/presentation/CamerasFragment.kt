@@ -23,6 +23,7 @@ class CamerasFragment : Fragment(R.layout.fragment_cameras) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.saveCamerasToDb()
         viewModel.camerasFromDb()
 
     }
@@ -44,15 +45,14 @@ class CamerasFragment : Fragment(R.layout.fragment_cameras) {
         }
     }
 
-    private fun initSwipeRefresh(){
+    private fun initSwipeRefresh() {
 
         binding.swipeRefreshCamera.setOnRefreshListener {
             viewModel.camerasFromDb()
+            binding.swipeRefreshCamera.isRefreshing = false
+
         }
-        binding.swipeRefreshCamera.isRefreshing = false
-
     }
-
 
     companion object {
         @JvmStatic

@@ -5,7 +5,7 @@ class CamerasUseCase(
 ) {
     val cameras = camerasRepository.getCamerasFromBd()
 
-    fun saveCamerasToDb(){
+    fun saveCamerasToDb() {
         camerasRepository.saveCamerasFromNetwork()
     }
 }

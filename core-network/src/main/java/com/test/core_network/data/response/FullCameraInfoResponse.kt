@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class FullCameraInfoResponse(
     @SerializedName("success")
     @Expose
-    val success : Boolean,
+    val success: Boolean,
     @SerializedName("data")
     @Expose
     val data: CamerasDataResponse,

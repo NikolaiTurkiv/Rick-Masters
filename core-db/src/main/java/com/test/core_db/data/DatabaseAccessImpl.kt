@@ -1,10 +1,6 @@
 package com.test.core_db.data
 
-import android.util.Log
 import com.test.core_db.domain.DatabaseAccess
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.RealmResults
@@ -14,26 +10,35 @@ class DatabaseAccessImpl @Inject constructor(
     private val config: RealmConfiguration
 ) : DatabaseAccess {
 
-    override fun saveCamera(camerasRealm: List<CameraRealm>) {
+    override fun saveCamera(cameraRealm: List<CameraRealm>) {
         val realm = Realm.getInstance(config)
 
         realm.beginTransaction()
 
-        for (camera in camerasRealm) {
-            realm.insert(camera)
+        for (camera in cameraRealm) {
+            realm.insertOrUpdate(camera)
         }
         realm.commitTransaction()
-        realm.close()
     }
 
-    override fun saveDoor(doorsRealm: List<DoorRealm>) {
+    override fun saveDoor(doorRealm: List<DoorRealm>) {
         val realm = Realm.getInstance(config)
+
+        val currentList = realm.where(DoorRealm::class.java).findAll()
 
         realm.beginTransaction()
 
-        for (doors in doorsRealm) {
-            realm.insert(doors)
+        if (currentList.isNotEmpty()) {
+            doorRealm.forEachIndexed { index, door ->
+                if (door.name == currentList[index]?.name && door.id == currentList[index]?.id)
+                    realm.insertOrUpdate(doorRealm[index])
+            }
+        } else {
+            doorRealm.forEach { door ->
+                realm.insertOrUpdate(door)
+            }
         }
+
         realm.commitTransaction()
     }
 
@@ -43,8 +48,23 @@ class DatabaseAccessImpl @Inject constructor(
         realm.beginTransaction()
 
         for (room in roomsRealm) {
-            realm.insert(room)
+            realm.insertOrUpdate(room)
         }
+        realm.commitTransaction()
+    }
+
+    override fun updateDoor(doorRealm: DoorRealm) {
+        val realm = Realm.getInstance(config)
+
+        realm.beginTransaction()
+
+        val doorFromDb = realm.where(DoorRealm::class.java)
+            .equalTo(ID, doorRealm.id)
+            .findFirst()
+
+        doorFromDb?.name = doorRealm.name
+        doorFromDb?.let { realm.copyToRealm(it) }
+
         realm.commitTransaction()
     }
 
@@ -69,6 +89,10 @@ class DatabaseAccessImpl @Inject constructor(
         realm.beginTransaction()
         realm.deleteAll()
         realm.commitTransaction()
+    }
+
+    companion object {
+        private const val ID = "id"
     }
 
 }
