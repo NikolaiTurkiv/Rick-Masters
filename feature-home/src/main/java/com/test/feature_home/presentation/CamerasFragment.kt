@@ -52,9 +52,7 @@ class CamerasFragment : Fragment(R.layout.fragment_cameras) {
             binding.swipeRefreshCamera.isRefreshing = false
 
         }
-
     }
-
 
     companion object {
         @JvmStatic

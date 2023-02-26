@@ -22,7 +22,7 @@ class DoorsRepositoryImpl(
                 {
                     db.updateDoor(door.toDoorsRealm())
                 }, {
-                    Log.d("UPDATE_DOOR_ERROR", it.message.toString())
+                    Log.d(DOOR_ERROR, it.message.toString())
                 }
             )
     }
@@ -54,7 +54,7 @@ class DoorsRepositoryImpl(
                     })
                 }
             }, {
-                Log.d("DOOR_INFO_ERROR", it.message.toString())
+                Log.d(DOOR_ERROR, it.message.toString())
             })
     }
 
@@ -65,8 +65,12 @@ class DoorsRepositoryImpl(
                 {
                     db.saveDoor(doors.map { it.toDoorsRealm() })
                 }, {
-                    Log.d("UPDATE_DOOR_ERROR", it.message.toString())
+                    Log.d(DOOR_ERROR, it.message.toString())
                 }
             )
+    }
+
+    companion object{
+        private const val DOOR_ERROR = "DOOR_ERROR"
     }
 }

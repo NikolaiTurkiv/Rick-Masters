@@ -25,7 +25,6 @@ class CameraRepositoryImpl(
             .subscribe({response->
                 db.saveCamera(response.data.cameras.map { map->
 
-                    Log.d("Camera_INFO_add",map.toString())
                     CameraRealm().apply {
                         name = map?.name
                         snapshot = map?.snapshot
@@ -37,11 +36,14 @@ class CameraRepositoryImpl(
                 })
 
              },{
-                Log.d("Camera_INFO_message",it.message.toString())
+                Log.d(CAMERA_ERROR,it.message.toString())
             })
     }
 
     override fun getCamerasFromBd(): Single<List<CameraInfo>> {
         return Single.just(db.getCamera().map { it.toCameraInfo() })
+    }
+    companion object{
+        private const val CAMERA_ERROR = "CAMERA_ERROR"
     }
 }

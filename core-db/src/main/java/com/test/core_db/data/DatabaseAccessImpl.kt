@@ -49,7 +49,7 @@ class DatabaseAccessImpl @Inject constructor(
         realm.beginTransaction()
 
         val doorFromDb = realm.where(DoorRealm::class.java)
-            .equalTo("id", doorRealm.id)
+            .equalTo(ID, doorRealm.id)
             .findFirst()
 
         doorFromDb?.name = doorRealm.name
@@ -79,6 +79,10 @@ class DatabaseAccessImpl @Inject constructor(
         realm.beginTransaction()
         realm.deleteAll()
         realm.commitTransaction()
+    }
+
+    companion object{
+        private const val ID = "id"
     }
 
 }

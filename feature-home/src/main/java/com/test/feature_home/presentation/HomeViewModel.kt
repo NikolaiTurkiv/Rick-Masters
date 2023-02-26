@@ -30,33 +30,18 @@ class HomeViewModel @Inject constructor(
     private val _doorsInfoLd = MutableLiveData<List<DoorsUI>>()
     val doorsInfoLD: LiveData<List<DoorsUI>> get() = _doorsInfoLd
 
-    fun saveDoors() {
-        doorsUseCase.saveDoors()
-    }
-
     fun doorsFromDb() {
         doorsUseCase.doorsFromDb
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .delay(1, TimeUnit.SECONDS)
             .subscribe({
-
-
                 val list = it.map { door -> door.toDoorsUI() }
                 _doorsInfoLd.postValue(list)
                 doorsList.addAll(list)
-                Log.d("DOOR_INFO_DB", it.toString())
-
-//                if (it.isEmpty()) {
-//                    doorsFromNetwork()
-//                } else {
-//                    val list = it.map { door -> door.toDoorsUI() }
-//                    _doorsInfoLd.postValue(list)
-//                    doorsList.addAll(list)
-//                    Log.d("DOOR_INFO_DB", it.toString())
-//                }
+                Log.d(LOG_DB_DOOR, it.toString())
             }, {
-                Log.d("DOOR_INFO_DB", it.toString())
+                Log.d(LOG_DB_DOOR, it.toString())
             }
             )
     }
@@ -70,9 +55,9 @@ class HomeViewModel @Inject constructor(
             }
             .subscribe({
                 doorsUseCase.saveDoorFromNetwork(it)
-                Log.d("DOOR_INFO_NW", it.toString())
+                Log.d(LOG_NW_DOOR, it.toString())
             }, {
-                Log.d("DOOR_INFO_NW", it.toString())
+                Log.d(LOG_NW_DOOR, it.toString())
             })
     }
 
@@ -81,9 +66,9 @@ class HomeViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .subscribe({
                 _cameraInfoLd.postValue(it)
-                Log.d("Camera_INFO", it.toString())
+                Log.d(LOG_NW_CAMERA, it.toString())
             }, {
-                Log.d("Camera_INFO_VM", it.message.toString())
+                Log.d(LOG_NW_CAMERA, it.message.toString())
             })
     }
 
@@ -100,5 +85,12 @@ class HomeViewModel @Inject constructor(
     fun saveCamerasToDb() {
         camerasUseCase.saveCamerasToDb()
     }
-
+companion object{
+    private const val LOG_DB_DOOR = "LOG_DB_DOOR"
+    private const val LOG_NW_DOOR = "LOG_NW_DOOR"
+    private const val LOG_NW_CAMERA = "LOG_NW_CAMERA"
+    private const val LOG_DB_CAMERA = "LOG_DB_CAMERA"
 }
+}
+
+
