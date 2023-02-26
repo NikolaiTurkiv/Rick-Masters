@@ -109,7 +109,6 @@ class EditDoorItemFragment : DialogFragment(R.layout.edit_door_item_dialog) {
 
                 object : CountDownTimer(2000,1000){
                     override fun onTick(p0: Long) {
-                        viewModel.closeDialog()
                     }
 
                     override fun onFinish() {

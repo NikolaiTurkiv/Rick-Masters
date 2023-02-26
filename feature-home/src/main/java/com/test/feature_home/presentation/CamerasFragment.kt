@@ -23,7 +23,7 @@ class CamerasFragment : Fragment(R.layout.fragment_cameras) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        viewModel.saveCamerasToDb()
+        viewModel.saveCamerasToDb()
         viewModel.camerasFromDb()
 
     }
@@ -49,8 +49,9 @@ class CamerasFragment : Fragment(R.layout.fragment_cameras) {
 
         binding.swipeRefreshCamera.setOnRefreshListener {
             viewModel.camerasFromDb()
+            binding.swipeRefreshCamera.isRefreshing = false
+
         }
-        binding.swipeRefreshCamera.isRefreshing = false
 
     }
 

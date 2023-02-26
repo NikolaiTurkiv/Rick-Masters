@@ -31,8 +31,8 @@ class DoorsFragment : Fragment(R.layout.fragment_doors){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//         viewModel.doorsFromNetwork()
-        viewModel.doorsFromDb()
+         viewModel.doorsFromNetwork()
+//        viewModel.doorsFromDb()
     }
 
 
@@ -46,10 +46,6 @@ class DoorsFragment : Fragment(R.layout.fragment_doors){
     private fun initObservers() {
         viewModel.doorsInfoLD.observe(viewLifecycleOwner) {
             doorAdapter.updateList(it)
-        }
-
-        viewModel.closeDialogLd.observe(viewLifecycleOwner){
-            Toast.makeText(requireContext(),"CLOSE",Toast.LENGTH_SHORT).show()
         }
     }
 

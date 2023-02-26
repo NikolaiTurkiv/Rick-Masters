@@ -20,7 +20,6 @@ class DatabaseAccessImpl @Inject constructor(
             realm.insert(camera)
         }
         realm.commitTransaction()
-        realm.close()
     }
 
     override fun saveDoor(doorsRealm: List<DoorRealm>) {
@@ -51,8 +50,6 @@ class DatabaseAccessImpl @Inject constructor(
             realm.insert(room)
         }
         realm.commitTransaction()
-        realm.close()
-
     }
 
     override fun updateDoor(doorRealm: DoorRealm) {
@@ -64,15 +61,10 @@ class DatabaseAccessImpl @Inject constructor(
             .equalTo("keyId", doorRealm.keyId)
             .findFirst()
 
-        Log.d("DOOOOR",doorFromDb.toString())
-        Log.d("DOOOOR",doorRealm.name.toString())
-
         doorFromDb?.name = doorRealm.name
         doorFromDb?.let { realm.copyToRealm(it) }
 
         realm.commitTransaction()
-        realm.close()
-
     }
 
     override fun getCamera(): RealmResults<CameraRealm> {

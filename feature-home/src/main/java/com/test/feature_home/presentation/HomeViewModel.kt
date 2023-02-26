@@ -30,15 +30,8 @@ class HomeViewModel @Inject constructor(
     private val _doorsInfoLd = MutableLiveData<List<DoorsUI>>()
     val doorsInfoLD: LiveData<List<DoorsUI>> get() = _doorsInfoLd
 
-    private val _closeDialogLd = MutableLiveData<Boolean>()
-    val closeDialogLd: LiveData<Boolean> get() = _closeDialogLd
-
     fun saveDoors() {
         doorsUseCase.saveDoors()
-    }
-
-    fun closeDialog() {
-        _closeDialogLd.value = true
     }
 
     fun doorsFromDb() {
@@ -95,7 +88,6 @@ class HomeViewModel @Inject constructor(
     fun updateDoorList(position: Int) {
         doorsList[position].viewType = if (doorsList[position].viewType == 0) 1 else 0
         _doorsInfoLd.value = doorsList
-        Log.d("DOOR_INFO", position.toString())
     }
 
     fun saveCamerasToDb() {
