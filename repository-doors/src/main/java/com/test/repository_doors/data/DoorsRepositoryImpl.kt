@@ -4,7 +4,10 @@ import android.util.Log
 import com.test.core_db.data.DoorRealm
 import com.test.core_db.domain.DatabaseAccess
 import com.test.core_network.data.NetworkApi
-import com.test.repository_doors.domain.*
+import com.test.repository_doors.domain.DoorsInfo
+import com.test.repository_doors.domain.DoorsRepository
+import com.test.repository_doors.domain.toDoorsInfo
+import com.test.repository_doors.domain.toDoorsRealm
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -33,7 +36,7 @@ class DoorsRepositoryImpl(
     }
 
     override fun getDoorsNetwork(): Single<List<DoorsInfo>> {
-        return api.getDoors().map { response -> response.data?.map {it!!.toDoorsInfo()} }
+        return api.getDoors().map { response -> response.data?.map { it!!.toDoorsInfo() } }
     }
 
 
@@ -70,7 +73,7 @@ class DoorsRepositoryImpl(
             )
     }
 
-    companion object{
+    companion object {
         private const val DOOR_ERROR = "DOOR_ERROR"
     }
 }

@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.test.feature_home.presentation.DoorsFragment
 import com.test.feature_home.presentation.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val decor: View = window.decorView
-                decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
         }
 
         super.onCreate(savedInstanceState)

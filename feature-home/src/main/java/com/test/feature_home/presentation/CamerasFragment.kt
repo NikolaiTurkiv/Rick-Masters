@@ -45,7 +45,7 @@ class CamerasFragment : Fragment(R.layout.fragment_cameras) {
         }
     }
 
-    private fun initSwipeRefresh(){
+    private fun initSwipeRefresh() {
 
         binding.swipeRefreshCamera.setOnRefreshListener {
             viewModel.camerasFromDb()

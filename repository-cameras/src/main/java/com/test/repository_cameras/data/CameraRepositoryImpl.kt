@@ -6,7 +6,6 @@ import com.test.core_db.domain.DatabaseAccess
 import com.test.core_network.data.NetworkApi
 import com.test.repository_cameras.domain.CameraInfo
 import com.test.repository_cameras.domain.CamerasRepository
-import com.test.repository_cameras.domain.FullCamerasInfo
 import com.test.repository_cameras.domain.toCameraInfo
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
@@ -22,8 +21,8 @@ class CameraRepositoryImpl(
         api.getCameras()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({response->
-                db.saveCamera(response.data.cameras.map { map->
+            .subscribe({ response ->
+                db.saveCamera(response.data.cameras.map { map ->
 
                     CameraRealm().apply {
                         name = map?.name
@@ -35,15 +34,16 @@ class CameraRepositoryImpl(
                     }
                 })
 
-             },{
-                Log.d(CAMERA_ERROR,it.message.toString())
+            }, {
+                Log.d(CAMERA_ERROR, it.message.toString())
             })
     }
 
     override fun getCamerasFromBd(): Single<List<CameraInfo>> {
         return Single.just(db.getCamera().map { it.toCameraInfo() })
     }
-    companion object{
+
+    companion object {
         private const val CAMERA_ERROR = "CAMERA_ERROR"
     }
 }

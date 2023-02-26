@@ -11,9 +11,9 @@ data class CameraInfo(
     val favorites: Boolean?,
     val rec: Boolean?,
 
-)
+    )
 
-fun CameraResponse.toCameraInfo() : CameraInfo{
+fun CameraResponse.toCameraInfo(): CameraInfo {
     return CameraInfo(
         name = this.name,
         snapshot = this.snapshot,
@@ -24,7 +24,7 @@ fun CameraResponse.toCameraInfo() : CameraInfo{
     )
 }
 
-fun CameraRealm.toCameraInfo(): CameraInfo{
+fun CameraRealm.toCameraInfo(): CameraInfo {
     return CameraInfo(
         name = this.name,
         snapshot = this.snapshot,

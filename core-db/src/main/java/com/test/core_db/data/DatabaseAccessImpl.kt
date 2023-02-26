@@ -1,6 +1,5 @@
 package com.test.core_db.data
 
-import android.util.Log
 import com.test.core_db.domain.DatabaseAccess
 import io.realm.Realm
 import io.realm.RealmConfiguration
@@ -30,7 +29,7 @@ class DatabaseAccessImpl @Inject constructor(
             realm.insertOrUpdate(doors)
         }
         realm.commitTransaction()
-     }
+    }
 
     override fun saveRoom(roomsRealm: List<RoomRealm>) {
         val realm = Realm.getInstance(config)
@@ -81,7 +80,7 @@ class DatabaseAccessImpl @Inject constructor(
         realm.commitTransaction()
     }
 
-    companion object{
+    companion object {
         private const val ID = "id"
     }
 

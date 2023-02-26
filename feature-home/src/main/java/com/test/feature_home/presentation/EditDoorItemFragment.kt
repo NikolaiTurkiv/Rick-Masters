@@ -4,12 +4,10 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -38,13 +36,13 @@ class EditDoorItemFragment : DialogFragment(R.layout.edit_door_item_dialog) {
             item: DoorsUI
         ) = EditDoorItemFragment().apply {
             arguments = Bundle().apply {
-                putInt(KEY_ID,item.keyId ?: 0)
+                putInt(KEY_ID, item.keyId ?: 0)
                 putString(NAME, item.name)
                 putString(ROOM, item.room)
                 putInt(ID, item.id ?: 0)
                 putBoolean(FAVORITES, item.favorites ?: false)
                 putString(SNAPSHOT, item.snapshot ?: "")
-                putInt(VIEW_TYPE, item.viewType )
+                putInt(VIEW_TYPE, item.viewType)
             }
         }
     }
@@ -62,8 +60,8 @@ class EditDoorItemFragment : DialogFragment(R.layout.edit_door_item_dialog) {
         savedInstanceState: Bundle?
     ): View? {
         if (dialog != null && dialog?.window != null) {
-            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-            dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE);
+            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         }
         dialog?.setCancelable(false)
 
@@ -90,7 +88,7 @@ class EditDoorItemFragment : DialogFragment(R.layout.edit_door_item_dialog) {
                     getString(com.test.core_ui.R.string.field_can_not_be_empty),
                     Toast.LENGTH_SHORT
                 ).show()
-            }else{
+            } else {
 
                 progressBar.visibility = View.VISIBLE
 
@@ -107,7 +105,7 @@ class EditDoorItemFragment : DialogFragment(R.layout.edit_door_item_dialog) {
                 )
 
 
-                object : CountDownTimer(2000,1000){
+                object : CountDownTimer(2000, 1000) {
                     override fun onTick(p0: Long) {
                     }
 

@@ -85,12 +85,12 @@ class HomeViewModel @Inject constructor(
     fun saveCamerasToDb() {
         camerasUseCase.saveCamerasToDb()
     }
-companion object{
-    private const val LOG_DB_DOOR = "LOG_DB_DOOR"
-    private const val LOG_NW_DOOR = "LOG_NW_DOOR"
-    private const val LOG_NW_CAMERA = "LOG_NW_CAMERA"
-    private const val LOG_DB_CAMERA = "LOG_DB_CAMERA"
-}
+
+    companion object {
+        private const val LOG_DB_DOOR = "LOG_DB_DOOR"
+        private const val LOG_NW_DOOR = "LOG_NW_DOOR"
+        private const val LOG_NW_CAMERA = "LOG_NW_CAMERA"
+     }
 }
 
 
