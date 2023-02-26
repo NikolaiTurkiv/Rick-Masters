@@ -10,24 +10,35 @@ class DatabaseAccessImpl @Inject constructor(
     private val config: RealmConfiguration
 ) : DatabaseAccess {
 
-    override fun saveCamera(camerasRealm: List<CameraRealm>) {
+    override fun saveCamera(cameraRealm: List<CameraRealm>) {
         val realm = Realm.getInstance(config)
 
         realm.beginTransaction()
 
-        for (camera in camerasRealm) {
+        for (camera in cameraRealm) {
             realm.insertOrUpdate(camera)
         }
         realm.commitTransaction()
     }
 
-    override fun saveDoor(doorsRealm: List<DoorRealm>) {
+    override fun saveDoor(doorRealm: List<DoorRealm>) {
         val realm = Realm.getInstance(config)
 
+        val currentList = realm.where(DoorRealm::class.java).findAll()
+
         realm.beginTransaction()
-        for (doors in doorsRealm) {
-            realm.insertOrUpdate(doors)
+
+        if (currentList.isNotEmpty()) {
+            doorRealm.forEachIndexed { index, door ->
+                if (door.name == currentList[index]?.name && door.id == currentList[index]?.id)
+                    realm.insertOrUpdate(doorRealm[index])
+            }
+        } else {
+            doorRealm.forEach { door ->
+                realm.insertOrUpdate(door)
+            }
         }
+
         realm.commitTransaction()
     }
 
